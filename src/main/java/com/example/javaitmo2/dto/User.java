@@ -5,8 +5,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Driver {
+public class User {
+    private String email;
+    private String password;
     private String name;
-    private Integer age;
-    private String licenseNumber;
+    private String surname;
+    private String uuid;
 }

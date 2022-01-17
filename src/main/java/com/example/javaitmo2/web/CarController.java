@@ -3,6 +3,7 @@ package com.example.javaitmo2.web;
 import com.example.javaitmo2.dto.Car;
 import com.example.javaitmo2.repository.CarRepository;
 import com.example.javaitmo2.repository.NotFoundException;
+import org.springframework.boot.autoconfigure.security.ConditionalOnDefaultWebSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class CarController {
 
     @GetMapping("/list")
     public ArrayList<Car> getCarsList() {
+
         return new CarRepository().getList();
     }
 

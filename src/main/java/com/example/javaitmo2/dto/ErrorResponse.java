@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Driver {
-    private String name;
-    private Integer age;
-    private String licenseNumber;
+public class ErrorResponse {
+    private String message;
 }
