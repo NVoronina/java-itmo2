@@ -3,7 +3,7 @@ package com.example.javaitmo2.web;
 import com.example.javaitmo2.dto.Car;
 import com.example.javaitmo2.repository.CarRepository;
 import com.example.javaitmo2.repository.NotFoundException;
-import org.springframework.boot.autoconfigure.security.ConditionalOnDefaultWebSecurity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,24 +13,26 @@ import java.util.ArrayList;
 public class CarController {
 
     @GetMapping("/list")
-    public ArrayList<Car> getCarsList() {
-
-        return new CarRepository().getList();
+    public ResponseEntity<ArrayList<Car>> getCarsList() {
+        return ResponseEntity.ok().body(new CarRepository().getList());
     }
 
     @GetMapping("/{vinNumber}")
-    public Car getCar(@PathVariable String vinNumber) {
+    public ResponseEntity<Car> getCar(@PathVariable String vinNumber) {
         try {
-            return new CarRepository().getByVin(vinNumber);
+            return ResponseEntity.ok().body(new CarRepository().getByVin(vinNumber));
         } catch (NotFoundException e) {
             System.out.println(e.getMessage());
+            ResponseEntity.notFound();
             return null;
         }
     }
 
     @PostMapping
-    public Car createCar(@RequestBody Car car) {
-        return new CarRepository().create(car.getVinNumber(), car.getBrand(), car.getSeatsCount());
+    public ResponseEntity<Car> createCar(@RequestBody Car car) {
+        return ResponseEntity.ok().body(
+                new CarRepository()
+                        .create(car.getVinNumber(), car.getBrand(), car.getSeatsCount()));
     }
 
     @DeleteMapping ("/{vinNumber}")
@@ -39,15 +41,17 @@ public class CarController {
             new CarRepository().delete(vinNumber);
         } catch (NotFoundException e) {
             System.out.println(e.getMessage());
+            ResponseEntity.notFound();
         }
     }
 
     @PutMapping
-    public Car updateCar(@RequestBody Car car) {
+    public ResponseEntity<Car> updateCar(@RequestBody Car car) {
         try {
-            return new CarRepository().update(car);
+            return ResponseEntity.ok().body(new CarRepository().update(car));
         } catch (NotFoundException e) {
             System.out.println(e.getMessage());
+            ResponseEntity.notFound();
             return null;
         }
     }

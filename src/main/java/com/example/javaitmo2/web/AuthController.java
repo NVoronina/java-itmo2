@@ -1,7 +1,7 @@
 package com.example.javaitmo2.web;
 
 import com.example.javaitmo2.dto.Token;
-import com.example.javaitmo2.dto.User;
+import com.example.javaitmo2.dto.UserRequest;
 import com.example.javaitmo2.repository.NotFoundException;
 import com.example.javaitmo2.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class AuthController {
     }
 
     @PostMapping( "/login")
-    public @ResponseBody Token getAuthUser(@RequestBody User user) {
+    public @ResponseBody Token getAuthUser(@RequestBody UserRequest user) {
         try {
             return this.service.authUser(user);
         } catch (NotFoundException e) {

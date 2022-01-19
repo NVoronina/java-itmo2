@@ -1,28 +1,23 @@
 package com.example.javaitmo2.repository;
 
-import com.example.javaitmo2.dto.Token;
-import com.example.javaitmo2.dto.User;
+import com.example.javaitmo2.dto.UserRequest;
+import com.example.javaitmo2.dto.UserResponse;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.stereotype.Repository;
 
 import javax.crypto.spec.SecretKeySpec;
-import javax.swing.plaf.IconUIResource;
 import java.security.Key;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
-import java.util.Date;
-import java.util.Locale;
 
 @Repository
 public class JwtRepository {
     private String secret = "asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4";
 
-    public String getToken(User existingUser) {
+    public String getToken(UserResponse existingUser) {
 
         return Jwts.builder()
                 .claim("name", existingUser.getName().concat(" ").concat(existingUser.getSurname()))

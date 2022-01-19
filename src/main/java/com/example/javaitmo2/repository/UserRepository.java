@@ -1,6 +1,7 @@
 package com.example.javaitmo2.repository;
 
-import com.example.javaitmo2.dto.User;
+import com.example.javaitmo2.dto.UserRequest;
+import com.example.javaitmo2.dto.UserResponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,9 +10,9 @@ import java.util.UUID;
 @Repository
 public class UserRepository {
 
-    public ArrayList<User> getList() {
-        ArrayList<User> userList = new ArrayList<>();
-        userList.add(new User(
+    public ArrayList<UserResponse> getList() {
+        ArrayList<UserResponse> userList = new ArrayList<>();
+        userList.add(new UserResponse(
                 "test@mail.test",
                 "rrrrrrr",
                 "Nataly",
@@ -22,9 +23,9 @@ public class UserRepository {
         return userList;
     }
 
-    public User getByLoginPassword(String email, String password) throws NotFoundException {
-        ArrayList<User> userList = this.getList();
-        for (User user : userList) {
+    public UserResponse getByLoginPassword(String email, String password) throws NotFoundException {
+        ArrayList<UserResponse> userList = this.getList();
+        for (UserResponse user : userList) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 return user;
             }
