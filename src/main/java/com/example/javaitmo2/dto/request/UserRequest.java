@@ -1,4 +1,4 @@
-package com.example.javaitmo2.dto;
+package com.example.javaitmo2.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

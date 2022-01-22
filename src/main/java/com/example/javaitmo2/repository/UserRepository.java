@@ -1,7 +1,6 @@
 package com.example.javaitmo2.repository;
 
-import com.example.javaitmo2.dto.UserRequest;
-import com.example.javaitmo2.dto.UserResponse;
+import com.example.javaitmo2.dto.response.UserResponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

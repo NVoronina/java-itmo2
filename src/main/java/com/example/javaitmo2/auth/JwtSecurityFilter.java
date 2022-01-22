@@ -29,6 +29,7 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
                 String jwtToken = authHeader.replace("Bearer ", "");
                 if (this.jwtRepository.validateJwtToken(jwtToken)) {
                     filterChain.doFilter(request, response);
+                    return;
                 }
             }
             response.setStatus(401);

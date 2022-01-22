@@ -1,8 +1,8 @@
 package com.example.javaitmo2.service;
 
-import com.example.javaitmo2.dto.Token;
-import com.example.javaitmo2.dto.UserRequest;
-import com.example.javaitmo2.dto.UserResponse;
+import com.example.javaitmo2.dto.response.TokenResponse;
+import com.example.javaitmo2.dto.request.UserRequest;
+import com.example.javaitmo2.dto.response.UserResponse;
 import com.example.javaitmo2.repository.JwtRepository;
 import com.example.javaitmo2.repository.NotFoundException;
 import com.example.javaitmo2.repository.UserRepository;
@@ -19,9 +19,9 @@ public class UserService {
         this.jwtRepository = jwtRepository;
     }
 
-    public Token authUser(UserRequest user) throws NotFoundException {
+    public TokenResponse authUser(UserRequest user) throws NotFoundException {
         UserResponse existingUser = this.repository.getByLoginPassword(user.getEmail(), user.getPassword());
 
-        return new Token(this.jwtRepository.getToken(existingUser));
+        return new TokenResponse(this.jwtRepository.getToken(existingUser));
     }
 }

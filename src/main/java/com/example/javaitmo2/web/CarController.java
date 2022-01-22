@@ -1,6 +1,9 @@
 package com.example.javaitmo2.web;
 
-import com.example.javaitmo2.dto.Car;
+import com.example.javaitmo2.dto.request.CarRequest;
+import com.example.javaitmo2.dto.response.CarResponse;
+import com.example.javaitmo2.dto.response.ErrorResponse;
+import com.example.javaitmo2.dto.response.ResponseInterface;
 import com.example.javaitmo2.repository.CarRepository;
 import com.example.javaitmo2.repository.NotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -13,46 +16,42 @@ import java.util.ArrayList;
 public class CarController {
 
     @GetMapping("/list")
-    public ResponseEntity<ArrayList<Car>> getCarsList() {
+    public ResponseEntity<ArrayList<CarResponse>> getCarsList() {
         return ResponseEntity.ok().body(new CarRepository().getList());
     }
 
     @GetMapping("/{vinNumber}")
-    public ResponseEntity<Car> getCar(@PathVariable String vinNumber) {
+    public ResponseEntity<ResponseInterface> getCar(@PathVariable String vinNumber) {
         try {
             return ResponseEntity.ok().body(new CarRepository().getByVin(vinNumber));
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            ResponseEntity.notFound();
-            return null;
+            return ResponseEntity.status(404).body(new ErrorResponse(e.getMessage()));
         }
     }
 
     @PostMapping
-    public ResponseEntity<Car> createCar(@RequestBody Car car) {
+    public ResponseEntity<ResponseInterface> createCar(@RequestBody CarRequest car) {
         return ResponseEntity.ok().body(
                 new CarRepository()
                         .create(car.getVinNumber(), car.getBrand(), car.getSeatsCount()));
     }
 
     @DeleteMapping ("/{vinNumber}")
-    public void deleteCar(@PathVariable String vinNumber) {
+    public ResponseEntity<ResponseInterface> deleteCar(@PathVariable String vinNumber) {
         try {
             new CarRepository().delete(vinNumber);
+            return null;
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            ResponseEntity.notFound();
+            return ResponseEntity.status(404).body(new ErrorResponse(e.getMessage()));
         }
     }
 
     @PutMapping
-    public ResponseEntity<Car> updateCar(@RequestBody Car car) {
+    public ResponseEntity<ResponseInterface> updateCar(@RequestBody CarRequest car) {
         try {
             return ResponseEntity.ok().body(new CarRepository().update(car));
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            ResponseEntity.notFound();
-            return null;
+            return ResponseEntity.status(404).body(new ErrorResponse(e.getMessage()));
         }
     }
 }

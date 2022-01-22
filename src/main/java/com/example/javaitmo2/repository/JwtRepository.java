@@ -1,7 +1,6 @@
 package com.example.javaitmo2.repository;
 
-import com.example.javaitmo2.dto.UserRequest;
-import com.example.javaitmo2.dto.UserResponse;
+import com.example.javaitmo2.dto.response.UserResponse;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.stereotype.Repository;

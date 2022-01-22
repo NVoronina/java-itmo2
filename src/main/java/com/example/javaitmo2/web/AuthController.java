@@ -1,9 +1,11 @@
 package com.example.javaitmo2.web;
 
-import com.example.javaitmo2.dto.Token;
-import com.example.javaitmo2.dto.UserRequest;
+import com.example.javaitmo2.dto.request.UserRequest;
+import com.example.javaitmo2.dto.response.ErrorResponse;
+import com.example.javaitmo2.dto.response.ResponseInterface;
 import com.example.javaitmo2.repository.NotFoundException;
 import com.example.javaitmo2.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,12 +19,11 @@ public class AuthController {
     }
 
     @PostMapping( "/login")
-    public @ResponseBody Token getAuthUser(@RequestBody UserRequest user) {
+    public @ResponseBody ResponseEntity<ResponseInterface> getAuthUser(@RequestBody UserRequest user) {
         try {
-            return this.service.authUser(user);
+            return ResponseEntity.ok().body(this.service.authUser(user));
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            return null;
+            return ResponseEntity.status(404).body(new ErrorResponse(e.getMessage()));
         }
     }
 
