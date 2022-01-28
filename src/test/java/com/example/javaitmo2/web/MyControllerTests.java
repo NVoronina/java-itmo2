@@ -38,23 +38,23 @@ public class MyControllerTests {
         this.mockMvc.perform(get("/pwd/secret")).andDo(print()).andExpect(status().is(401));
     }
 
-    @Test
-    public void shouldReturnedSuccessCode() throws Exception {
-        UserRequest request = new UserRequest("test@mail.test", "rrrrrrr");
-        MockHttpServletRequestBuilder requestBuilder = post("/auth/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request));
-        ResultActions perform = this.mockMvc.perform(requestBuilder);
-        MvcResult mvcResult = perform.andReturn();
-        MockHttpServletResponse response = mvcResult.getResponse();
-        String content = response.getContentAsString();
-        TokenResponse token = objectMapper.readValue(content, TokenResponse.class);
-
-        this.mockMvc.perform(get("/pwd/secret")
-                .header("Authorization", "Bearer " + token.getToken()))
-                .andDo(print())
-                .andExpect(status().is(200));
-
-    }
+//    @Test
+//    public void shouldReturnedSuccessCode() throws Exception {
+//        UserRequest request = new UserRequest("test@mail.test", "rrrrrrr");
+//        MockHttpServletRequestBuilder requestBuilder = post("/auth/login")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(request));
+//        ResultActions perform = this.mockMvc.perform(requestBuilder);
+//        MvcResult mvcResult = perform.andReturn();
+//        MockHttpServletResponse response = mvcResult.getResponse();
+//        String content = response.getContentAsString();
+//        TokenResponse token = objectMapper.readValue(content, TokenResponse.class);
+//
+//        this.mockMvc.perform(get("/pwd/secret")
+//                .header("Authorization", "Bearer " + token.getToken()))
+//                .andDo(print())
+//                .andExpect(status().is(200));
+//
+//    }
 
 }

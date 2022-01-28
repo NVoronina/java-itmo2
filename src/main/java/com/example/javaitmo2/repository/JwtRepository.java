@@ -1,6 +1,7 @@
 package com.example.javaitmo2.repository;
 
 import com.example.javaitmo2.dto.response.UserResponse;
+import com.example.javaitmo2.entity.UserEntity;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.stereotype.Repository;
@@ -16,13 +17,13 @@ import java.util.Base64;
 public class JwtRepository {
     private String secret = "asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4";
 
-    public String getToken(UserResponse existingUser) {
+    public String getToken(UserEntity existingUser) {
 
         return Jwts.builder()
                 .claim("name", existingUser.getName().concat(" ").concat(existingUser.getSurname()))
                 .claim("email", existingUser.getEmail())
                 .setSubject(existingUser.getName())
-                .setId(existingUser.getUuid())
+                .setId(existingUser.getId().toString())
                 .setIssuedAt(Timestamp.from(Instant.now()))
                 .setExpiration(Timestamp.from(Instant.now().plus(1, ChronoUnit.MINUTES)))
                 .signWith(this.getHmacKey())

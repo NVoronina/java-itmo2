@@ -18,11 +18,11 @@ public class UserServiceTest {
 
     @Test
     public void authUserException() {
-        assertThrows(NotFoundException.class, () -> userService.authUser(new UserRequest("test", "test")));
+        assertThrows(NotFoundException.class, () -> userService.authUser(new UserRequest("test", "test", "Natalia", "Voronina")));
     }
 
     @Test
     public void authUserSuccess() throws Exception {
-        assertInstanceOf(TokenResponse.class, userService.authUser(new UserRequest("test@mail.test", "rrrrrrr")));
+        assertInstanceOf(TokenResponse.class, userService.authUser(new UserRequest("test@mail.test", "rrrrrrr","Natalia", "Voronina")));
     }
 }

@@ -3,7 +3,7 @@ package com.example.javaitmo2.repository;
 import com.example.javaitmo2.dto.request.CarRequest;
 import com.example.javaitmo2.dto.response.CarResponse;
 import com.example.javaitmo2.dto.Driver;
-import com.example.javaitmo2.entity.EntityInterface;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;
 
