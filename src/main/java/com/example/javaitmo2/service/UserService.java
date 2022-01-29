@@ -34,7 +34,7 @@ public class UserService {
 
         if (repository.getByEmail(user.getEmail()) == null) {
             UserEntity userEntity = modelMapper.map(user, UserEntity.class);
-            this.repository.save(userEntity);
+            this.repository.saveAndFlush(userEntity);
 
             return userEntity;
         }

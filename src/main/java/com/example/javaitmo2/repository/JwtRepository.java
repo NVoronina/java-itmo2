@@ -25,7 +25,7 @@ public class JwtRepository {
                 .setSubject(existingUser.getName())
                 .setId(existingUser.getId().toString())
                 .setIssuedAt(Timestamp.from(Instant.now()))
-                .setExpiration(Timestamp.from(Instant.now().plus(1, ChronoUnit.MINUTES)))
+                .setExpiration(Timestamp.from(Instant.now().plus(1, ChronoUnit.HOURS)))
                 .signWith(this.getHmacKey())
                 .compact();
     }

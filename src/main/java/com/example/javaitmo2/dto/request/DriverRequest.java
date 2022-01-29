@@ -1,12 +1,11 @@
-package com.example.javaitmo2.dto;
+package com.example.javaitmo2.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Driver {
-    private String name;
+public class DriverRequest {
     private Integer age;
     private String licenseNumber;
 }

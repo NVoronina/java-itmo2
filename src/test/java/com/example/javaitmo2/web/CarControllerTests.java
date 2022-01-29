@@ -87,7 +87,7 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedSuccessPost() throws Exception {
-        CarRequest request = new CarRequest("RETSBHGDG", "bmw", 4);
+        CarRequest request = new CarRequest("RETSBHGDG", "bmw", 4, null);
         MockHttpServletRequestBuilder requestBuilder = post("/cars")
                 .header("Authorization", "Bearer " + this.token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -105,7 +105,7 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedSuccessPut() throws Exception {
-        CarRequest request = new CarRequest("ZCR12TTFGHJS45", "toyota", 5);
+        CarRequest request = new CarRequest("ZCR12TTFGHJS45", "toyota", 5, null);
         MockHttpServletRequestBuilder requestBuilder = put("/cars")
                 .header("Authorization", "Bearer " + this.token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -123,7 +123,7 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedPutException() throws Exception {
-        CarRequest request = new CarRequest("HHHGHHHHH", "toyota", 5);
+        CarRequest request = new CarRequest("HHHGHHHHH", "toyota", 5, null);
         MockHttpServletRequestBuilder requestBuilder = put("/cars")
                 .header("Authorization", "Bearer " + this.token)
                 .contentType(MediaType.APPLICATION_JSON)

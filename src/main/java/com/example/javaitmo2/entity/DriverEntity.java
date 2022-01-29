@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -25,7 +26,7 @@ public class DriverEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
 
-    @ManyToMany(mappedBy = "drivers")
+    @ManyToMany(mappedBy = "drivers", cascade = CascadeType.ALL)
     Set<CarEntity> cars;
 
 }

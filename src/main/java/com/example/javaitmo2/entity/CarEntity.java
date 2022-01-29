@@ -1,15 +1,10 @@
 package com.example.javaitmo2.entity;
 
-import com.example.javaitmo2.dto.Driver;
-import com.example.javaitmo2.dto.response.ResponseInterface;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -31,9 +26,11 @@ public class CarEntity {
     @Column(nullable = false, columnDefinition = "bigint default 0")
     private Integer seatsCount = 0;
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REMOVE
+    })
     @JoinTable(
             joinColumns = @JoinColumn(name = "driver_id"),
             inverseJoinColumns = @JoinColumn(name = "car_id"))
-    Set<CarEntity> drivers;
+    Set<DriverEntity> drivers;
 }
