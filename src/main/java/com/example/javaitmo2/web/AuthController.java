@@ -21,7 +21,7 @@ public class AuthController {
     @PostMapping( "/login")
     public @ResponseBody ResponseEntity<ResponseInterface> getAuthUser(@RequestBody UserRequest user) {
         try {
-            return ResponseEntity.ok().body(this.service.authUser(user));
+            return ResponseEntity.ok().body(service.authUser(user));
         } catch (NotFoundException e) {
             return ResponseEntity.status(404).body(new ErrorResponse(e.getMessage()));
         }

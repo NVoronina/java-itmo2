@@ -12,5 +12,5 @@ public class UserResponse implements ResponseInterface {
     private String password;
     private String name;
     private String surname;
-    private String uuid;
+    private String id;
 }

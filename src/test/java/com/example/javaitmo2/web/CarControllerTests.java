@@ -18,8 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,7 +37,7 @@ public class CarControllerTests {
 
     @BeforeEach
     public void setUpClass() throws Exception {
-        UserRequest request = new UserRequest("test@mail.test", "rrrrrrr");
+        UserRequest request = new UserRequest("test@mail.test", "rrrrrrr", "Natalia", "Voronina");
         MockHttpServletRequestBuilder requestBuilder = post("/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request));
@@ -52,20 +51,30 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedSuccessGetList() throws Exception {
-        this.mockMvc.perform(get("/cars/list")
+        ResultActions perform = this.mockMvc.perform(get("/cars/list")
                 .header("Authorization", "Bearer " + this.token))
                 .andDo(print())
                 .andExpect(status().is(200));
+        MvcResult mvcResult = perform.andReturn();
 
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String content = response.getContentAsString();
+
+        assertFalse(content.isEmpty());
     }
 
     @Test
     public void shouldReturnedSuccessGetOne() throws Exception {
-        this.mockMvc.perform(get("/cars/RRR12TTFGHJS89")
+        ResultActions perform = this.mockMvc.perform(get("/cars/RRR12TTFGHJS89")
                         .header("Authorization", "Bearer " + this.token))
                 .andDo(print())
                 .andExpect(status().is(200));
+        MvcResult mvcResult = perform.andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String content = response.getContentAsString();
+        CarResponse car = objectMapper.readValue(content, CarResponse.class);
 
+        assertEquals(car.getVinNumber(), "RRR12TTFGHJS89");
     }
 
     @Test
@@ -74,12 +83,11 @@ public class CarControllerTests {
                         .header("Authorization", "Bearer " + this.token))
                 .andDo(print())
                 .andExpect(status().is(404));
-
     }
 
     @Test
     public void shouldReturnedSuccessPost() throws Exception {
-        CarRequest request = new CarRequest("RETSBHGDG", "bmw", 4);
+        CarRequest request = new CarRequest("RETSBHGDG", "bmw", 4, null);
         MockHttpServletRequestBuilder requestBuilder = post("/cars")
                 .header("Authorization", "Bearer " + this.token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -97,7 +105,7 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedSuccessPut() throws Exception {
-        CarRequest request = new CarRequest("ZCR12TTFGHJS45", "toyota", 5);
+        CarRequest request = new CarRequest("ZCR12TTFGHJS45", "toyota", 5, null);
         MockHttpServletRequestBuilder requestBuilder = put("/cars")
                 .header("Authorization", "Bearer " + this.token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -115,7 +123,7 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedPutException() throws Exception {
-        CarRequest request = new CarRequest("HHHGHHHHH", "toyota", 5);
+        CarRequest request = new CarRequest("HHHGHHHHH", "toyota", 5, null);
         MockHttpServletRequestBuilder requestBuilder = put("/cars")
                 .header("Authorization", "Bearer " + this.token)
                 .contentType(MediaType.APPLICATION_JSON)

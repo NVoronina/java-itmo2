@@ -9,18 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.ArrayList;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,16 +23,17 @@ public class UserServiceMockito {
     @Mock
     JwtRepository jwtRepository;
 
-    @Test
-    public void testMockitoUser() throws Exception {
-        Mockito.when(userRepository.getByLoginPassword("test@mail.test", "rrrrrrr")).thenReturn(new UserResponse(
-                "test@mail.test",
-                "rrrrrrr",
-                "Nataly",
-                "Best",
-                UUID.randomUUID().toString()
-        ));
-        UserService userService = new UserService(userRepository, jwtRepository);
-        assertInstanceOf(TokenResponse.class, userService.authUser(new UserRequest("test@mail.test", "rrrrrrr")));
-    }
+//    @Test
+//    public void testMockitoUser() throws Exception {
+//        Mockito.when(userRepository.getByLoginPassword("test@mail.test", "rrrrrrr"))
+//                .thenReturn(new UserResponse(
+//                "test@mail.test",
+//                "rrrrrrr",
+//                "Nataly",
+//                "Best",
+//                UUID.randomUUID().toString()
+//        ));
+//        UserService userService = new UserService(userRepository, jwtRepository);
+//        assertInstanceOf(TokenResponse.class, userService.authUser(new UserRequest("test@mail.test", "rrrrrrr")));
+//    }
 }
