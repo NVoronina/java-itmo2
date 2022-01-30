@@ -38,4 +38,10 @@ public class UserEntity {
     @OneToOne(mappedBy = "user")
     private DriverEntity driver;
 
+    public UserEntity(String email, String password, String name, String surname) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+    }
 }

@@ -26,7 +26,9 @@ public class UserService {
 
     public TokenResponse authUser(UserRequest user) throws NotFoundException {
         UserEntity existingUser = repository.getByEmailAndPassword(user.getEmail(), user.getPassword());
-
+        if (existingUser == null) {
+            throw new NotFoundException("User not found by email and password");
+        }
         return new TokenResponse(jwtRepository.getToken(existingUser));
     }
 

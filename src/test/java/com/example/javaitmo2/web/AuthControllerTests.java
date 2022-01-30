@@ -3,6 +3,7 @@ package com.example.javaitmo2.web;
 import com.example.javaitmo2.dto.response.ErrorResponse;
 import com.example.javaitmo2.dto.response.TokenResponse;
 import com.example.javaitmo2.dto.request.UserRequest;
+import com.example.javaitmo2.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +23,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 public class AuthControllerTests {
 
-    @Test
-    void contextLoads() {
-    }
-
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private UserService userService;
+
     @Test
     public void shouldReturnedSuccessPost() throws Exception {
-        UserRequest request = new UserRequest("test@mail.test", "rrrrrrr", "Natalia", "Voronina");
+        UserRequest request = new UserRequest("test2@mail.test", "rrrrrrr", "Natalia", "Voronina");
+        userService.addUser(request);
+
         MockHttpServletRequestBuilder requestBuilder = post("/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request));
@@ -48,7 +50,7 @@ public class AuthControllerTests {
 
     @Test
     public void shouldReturnedFailPost() throws Exception {
-        UserRequest request = new UserRequest("test@mail.test", "dd", "Natalia", "Voronina");
+        UserRequest request = new UserRequest("test2@mail.test", "dd", "Natalia", "Voronina");
         MockHttpServletRequestBuilder requestBuilder = post("/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request));
@@ -58,7 +60,7 @@ public class AuthControllerTests {
         String content = response.getContentAsString();
         ErrorResponse error = objectMapper.readValue(content, ErrorResponse.class);
 
-        assertEquals(error.getMessage(), "User not found by login and password");
+        assertFalse(error.getMessage().isEmpty());
         assertEquals(404, response.getStatus());
     }
 }

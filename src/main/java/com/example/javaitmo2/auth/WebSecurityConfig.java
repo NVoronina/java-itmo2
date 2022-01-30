@@ -18,9 +18,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.addFilterBefore(new JwtSecurityFilter(jwtRepository), CsrfFilter.class);
+
         http.cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/auth/**").permitAll();
-        http.addFilterBefore(new JwtSecurityFilter(jwtRepository), CsrfFilter.class);
     }
 }
