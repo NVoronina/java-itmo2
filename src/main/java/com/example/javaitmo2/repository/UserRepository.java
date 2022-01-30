@@ -9,6 +9,6 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {
 
-    UserEntity getByEmailAndPassword(String email, String password) throws NotFoundException;
+    UserEntity getByEmailAndPassword(String email, String password);
     UserEntity getByEmail(String email);
 }

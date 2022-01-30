@@ -45,7 +45,7 @@ public class CarService {
             throw new ValidationException("Car exist with vin " + carRequest.getVinNumber());
         }
         car = modelMapper.map(carRequest, CarEntity.class);
-        repository.saveAndFlush(car);
+        repository.save(car);
 
         return modelMapper.map(car, CarResponse.class);
     }
@@ -78,7 +78,7 @@ public class CarService {
                 carEntity.getDrivers().add(modelMapper.map(driver, DriverEntity.class));
             }
         }
-        repository.saveAndFlush(carEntity);
+        repository.save(carEntity);
 
         return modelMapper.map(carEntity, CarResponse.class);
     }
