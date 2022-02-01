@@ -30,6 +30,16 @@ public class CarController {
         return ResponseEntity.ok().body(carService.getList());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<ArrayList<CarResponse>> searchCars(
+            @RequestParam(required = false) String brand,
+            @RequestParam(required = false) Integer minSeatsCount,
+            @RequestParam(defaultValue = "0", required = false) Integer page,
+            @RequestParam(defaultValue = "5", required = false) Integer size
+    ) {
+        return ResponseEntity.ok().body(carService.search(brand, minSeatsCount, page, size));
+    }
+
     @GetMapping("/{vinNumber}")
     public ResponseEntity<ResponseInterface> getCar(@PathVariable String vinNumber) {
         try {
@@ -43,7 +53,6 @@ public class CarController {
     public ResponseEntity<ResponseInterface> createCar(@RequestBody CarRequest car) {
         try {
             CarResponse carR = carService.create(car);
-            System.out.println(carR.toString());
             return ResponseEntity.ok().body(carR);
         } catch (ValidationException e) {
             return ResponseEntity.status(400).body(new ErrorResponse(e.getMessage()));
