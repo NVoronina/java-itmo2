@@ -1,11 +1,7 @@
 package com.example.javaitmo2.repository;
 
 import com.example.javaitmo2.entity.CarEntity;
-import org.hibernate.annotations.OrderBy;
-import org.hibernate.annotations.SortNatural;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
