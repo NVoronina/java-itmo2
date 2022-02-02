@@ -18,11 +18,12 @@ public class OwnerRepository {
     }
 
     public OwnerEntity getOwnerByCarVin(String vinNumber) {
+        // todo
         Object result = this.em
                 .createNativeQuery(
                         "SELECT o.* FROM owners o " +
                         " INNER JOIN cars c ON o.id = c.owner_id" +
-                        " WHERE c.vin_number = :vin")
+                        " WHERE c.vin_number = :vin", OwnerEntity.class)
                 .setParameter("vin", vinNumber)
                 .getFirstResult();
 
