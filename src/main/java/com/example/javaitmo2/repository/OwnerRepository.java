@@ -1,6 +1,9 @@
 package com.example.javaitmo2.repository;
 
 import com.example.javaitmo2.entity.OwnerEntity;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Repository;
 
@@ -18,14 +21,13 @@ public class OwnerRepository {
     }
 
     public OwnerEntity getOwnerByCarVin(String vinNumber) {
-        // todo
         Object result = this.em
                 .createNativeQuery(
                         "SELECT o.* FROM owners o " +
-                        " INNER JOIN cars c ON o.id = c.owner_id" +
-                        " WHERE c.vin_number = :vin", OwnerEntity.class)
+                                "INNER JOIN cars c ON o.id = c.owner_id " +
+                                "WHERE c.vin_number = :vin", OwnerEntity.class)
                 .setParameter("vin", vinNumber)
-                .getFirstResult();
+                .getSingleResult();
 
         return modelMapper.map(result, OwnerEntity.class);
     }
