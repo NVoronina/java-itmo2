@@ -85,11 +85,11 @@ public class CarControllerTests {
     @Test
     public void shouldReturnedSuccessGetOne() throws Exception {
         OwnerRequest ownerRequest = new OwnerRequest("DOC_CAR_REG_2", new Date());
-
-        CarRequest request = new CarRequest("RRR12TTFGHJS89", "toyota", 5, null, ownerRequest);
+        String expectedVin = "RRR12TTFGHJS89";
+        CarRequest request = new CarRequest(expectedVin, "toyota", 5, null, ownerRequest);
         carService.create(request);
 
-        ResultActions perform = this.mockMvc.perform(get("/cars/RRR12TTFGHJS89")
+        ResultActions perform = this.mockMvc.perform(get("/cars/" + expectedVin)
                         .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().is(200));
@@ -98,7 +98,7 @@ public class CarControllerTests {
         String content = response.getContentAsString();
         CarResponse car = objectMapper.readValue(content, CarResponse.class);
 
-        assertEquals(car.getVinNumber(), "RRR12TTFGHJS89");
+        assertEquals(expectedVin, car.getVinNumber());
     }
 
     @Test

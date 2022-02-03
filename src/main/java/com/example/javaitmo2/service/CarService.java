@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -28,16 +29,13 @@ public class CarService {
         this.modelMapper = modelMapper;
     }
 
-    public ArrayList<CarResponse> getList() {
-        Iterable<CarEntity> list = repository.findAll();
-        ArrayList<CarResponse> result = new ArrayList<>();
-        for (CarEntity car: list) {
-            result.add(modelMapper.map(car, CarResponse.class));
-        }
-        return result;
+    public List<CarResponse> getList() {
+        Collection<CarEntity> list = repository.findAll();
+
+        return list.stream().map(car -> modelMapper.map(car, CarResponse.class)).collect(Collectors.toList());
     }
 
-    public ArrayList<CarResponse> search(String brand, Integer minSeatsCount, Integer page, Integer size) throws ValidationException {
+    public List<CarResponse> search(String brand, Integer minSeatsCount, Integer page, Integer size) throws ValidationException {
         Collection<CarEntity> list;
         if (brand != null) {
             list = repository.findAllByBrandOrderByIdDesc(brand);
@@ -47,11 +45,8 @@ public class CarService {
         } else {
             throw new ValidationException("No parameters founded");
         }
-        ArrayList<CarResponse> result = new ArrayList<>();
-        for (CarEntity car: list) {
-            result.add(modelMapper.map(car, CarResponse.class));
-        }
-        return result;
+
+        return list.stream().map(car -> modelMapper.map(car, CarResponse.class)).collect(Collectors.toList());
     }
 
     public CarResponse getByVin(String vin) throws NotFoundException {

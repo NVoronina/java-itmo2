@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("cars")
@@ -26,12 +27,12 @@ public class CarController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<ArrayList<CarResponse>> getCarsList() {
+    public ResponseEntity<List<CarResponse>> getCarsList() {
         return ResponseEntity.ok().body(carService.getList());
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ArrayList<CarResponse>> searchCars(
+    public ResponseEntity<List<CarResponse>> searchCars(
             @RequestParam(required = false) String brand,
             @RequestParam(required = false) Integer minSeatsCount,
             @RequestParam(defaultValue = "0", required = false) Integer page,

@@ -1,9 +1,6 @@
 package com.example.javaitmo2.repository;
 
 import com.example.javaitmo2.entity.OwnerEntity;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Repository;
 
