@@ -7,10 +7,17 @@ import com.example.javaitmo2.entity.CarEntity;
 import com.example.javaitmo2.entity.DriverEntity;
 import com.example.javaitmo2.repository.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -22,13 +29,24 @@ public class CarService {
         this.modelMapper = modelMapper;
     }
 
-    public ArrayList<CarResponse> getList() {
-        List<CarEntity> list = repository.findAll();
-        ArrayList<CarResponse> result = new ArrayList<>();
-        for (CarEntity car: list) {
-            result.add(modelMapper.map(car, CarResponse.class));
+    public List<CarResponse> getList() {
+        Collection<CarEntity> list = repository.findAll();
+
+        return list.stream().map(car -> modelMapper.map(car, CarResponse.class)).collect(Collectors.toList());
+    }
+
+    public List<CarResponse> search(String brand, Integer minSeatsCount, Integer page, Integer size) throws ValidationException {
+        Collection<CarEntity> list;
+        if (brand != null) {
+            list = repository.findAllByBrandOrderByIdDesc(brand);
+        } else if (minSeatsCount != null) {
+            Pageable pager = PageRequest.of(page, size, Sort.by("id").descending());
+            list = repository.findAllBySeatsCountGreaterThan(minSeatsCount, pager);
+        } else {
+            throw new ValidationException("No parameters founded");
         }
-        return result;
+
+        return list.stream().map(car -> modelMapper.map(car, CarResponse.class)).collect(Collectors.toList());
     }
 
     public CarResponse getByVin(String vin) throws NotFoundException {

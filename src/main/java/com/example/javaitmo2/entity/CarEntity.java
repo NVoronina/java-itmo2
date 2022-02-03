@@ -27,10 +27,22 @@ public class CarEntity {
     private Integer seatsCount = 0;
 
     @ManyToMany(cascade = {
-            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REMOVE
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH,
+            CascadeType.REMOVE
     })
     @JoinTable(
             joinColumns = @JoinColumn(name = "driver_id"),
             inverseJoinColumns = @JoinColumn(name = "car_id"))
     Set<DriverEntity> drivers;
+
+    @ManyToOne(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH,
+            CascadeType.REMOVE
+    })
+    @JoinColumn(name = "owner_id", nullable = false)
+    OwnerEntity owner;
 }

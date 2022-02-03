@@ -1,11 +1,13 @@
 package com.example.javaitmo2.web;
 
 import com.example.javaitmo2.dto.request.DriverRequest;
+import com.example.javaitmo2.dto.request.OwnerRequest;
 import com.example.javaitmo2.dto.request.UserRequest;
 import com.example.javaitmo2.dto.request.CarRequest;
 import com.example.javaitmo2.dto.response.CarResponse;
 import com.example.javaitmo2.dto.response.ErrorResponse;
 import com.example.javaitmo2.dto.response.TokenResponse;
+import com.example.javaitmo2.entity.OwnerEntity;
 import com.example.javaitmo2.service.CarService;
 import com.example.javaitmo2.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +25,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.sql.Driver;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -81,10 +84,12 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedSuccessGetOne() throws Exception {
-        CarRequest request = new CarRequest("RRR12TTFGHJS89", "toyota", 5, null);
+        OwnerRequest ownerRequest = new OwnerRequest("DOC_CAR_REG_2", new Date());
+        String expectedVin = "RRR12TTFGHJS89";
+        CarRequest request = new CarRequest(expectedVin, "toyota", 5, null, ownerRequest);
         carService.create(request);
 
-        ResultActions perform = this.mockMvc.perform(get("/cars/RRR12TTFGHJS89")
+        ResultActions perform = this.mockMvc.perform(get("/cars/" + expectedVin)
                         .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().is(200));
@@ -93,7 +98,7 @@ public class CarControllerTests {
         String content = response.getContentAsString();
         CarResponse car = objectMapper.readValue(content, CarResponse.class);
 
-        assertEquals(car.getVinNumber(), "RRR12TTFGHJS89");
+        assertEquals(expectedVin, car.getVinNumber());
     }
 
     @Test
@@ -108,7 +113,11 @@ public class CarControllerTests {
     public void shouldReturnedSuccessPost() throws Exception {
         ArrayList<DriverRequest> driverRequests = new ArrayList<DriverRequest>();
         driverRequests.add(new DriverRequest(44, "lisencenumber"));
-        CarRequest request = new CarRequest("RETSBHGDG", "bmw", 4, driverRequests);
+
+        OwnerRequest ownerRequest = new OwnerRequest("DOC_CAR_REG_1", new Date());
+        driverRequests.add(new DriverRequest(44, "lisencenumber"));
+
+        CarRequest request = new CarRequest("RETSBHGDG", "bmw", 4, driverRequests, ownerRequest);
 
         MockHttpServletRequestBuilder requestBuilder = post("/cars")
                 .header("Authorization", "Bearer " + token)
@@ -127,7 +136,9 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedSuccessPut() throws Exception {
-        CarRequest request = new CarRequest("ZCR12TTFGHJS45", "toyota", 5, new ArrayList<>());
+        OwnerRequest ownerRequest = new OwnerRequest("DOC_CAR_REG_2", new Date());
+
+        CarRequest request = new CarRequest("ZCR12TTFGHJS45", "toyota", 5, new ArrayList<>(), ownerRequest);
         carService.create(request);
 
         MockHttpServletRequestBuilder requestBuilder = put("/cars")
@@ -148,7 +159,9 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedPutException() throws Exception {
-        CarRequest request = new CarRequest("HHHGHHHHH", "toyota", 5, null);
+        OwnerRequest ownerRequest = new OwnerRequest("DOC_CAR_REG_2", new Date());
+
+        CarRequest request = new CarRequest("HHHGHHHHH", "toyota", 5, null, ownerRequest);
         MockHttpServletRequestBuilder requestBuilder = put("/cars")
                 .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -166,7 +179,9 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedSuccessDelete() throws Exception {
-        CarRequest request = new CarRequest("YYY12TTFGHJS55", "toyota", 5, null);
+        OwnerRequest ownerRequest = new OwnerRequest("DOC_CAR_REG_2", new Date());
+
+        CarRequest request = new CarRequest("YYY12TTFGHJS55", "toyota", 5, null, ownerRequest);
 
         carService.create(request);
         this.mockMvc.perform(delete("/cars/YYY12TTFGHJS55")

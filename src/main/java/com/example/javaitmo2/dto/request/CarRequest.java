@@ -12,4 +12,5 @@ public class CarRequest {
     private String brand;
     private Integer seatsCount;
     private ArrayList<DriverRequest> drivers;
+    private OwnerRequest owner;
 }
