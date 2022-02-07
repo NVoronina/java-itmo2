@@ -31,12 +31,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseInterface> createUser(@RequestBody UserRequest userRequest) {
-        try {
-            return ResponseEntity.ok().body(
-                    modelMapper.map(this.userService.addUser(userRequest), UserResponse.class));
-        } catch (ValidationException e) {
-            return ResponseEntity.status(400).body(new ErrorResponse(e.getMessage()));
-        }
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
+        return ResponseEntity.ok().body(
+                modelMapper.map(this.userService.addUser(userRequest), UserResponse.class));
     }
 }
