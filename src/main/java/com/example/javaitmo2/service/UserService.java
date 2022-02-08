@@ -1,6 +1,5 @@
 package com.example.javaitmo2.service;
 
-import com.example.javaitmo2.conf.UserConf;
 import com.example.javaitmo2.dto.response.TokenResponse;
 import com.example.javaitmo2.dto.request.UserRequest;
 import com.example.javaitmo2.entity.UserEntity;
@@ -9,8 +8,6 @@ import com.example.javaitmo2.repository.NotFoundException;
 import com.example.javaitmo2.repository.UserRepository;
 import com.example.javaitmo2.repository.ValidationException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 @Service
