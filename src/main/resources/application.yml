@@ -11,6 +11,9 @@ spring:
     password: postgres
   flyway:
     baseline-on-migrate: true
-
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
 app_host: localhost:8080
 app_env: dev
+api_brands: https://the-vehicles-api.herokuapp.com

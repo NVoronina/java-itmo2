@@ -3,6 +3,7 @@ package com.example.javaitmo2.web;
 import com.example.javaitmo2.dto.request.CarRequest;
 import com.example.javaitmo2.dto.response.CarResponse;
 import com.example.javaitmo2.service.CarService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("cars")
+//@OpenAPIDefinition(tags = {})
 public class CarController {
 
     private CarService carService;

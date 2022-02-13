@@ -8,10 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JwtSecurityFilter extends OncePerRequestFilter {
 
@@ -31,11 +28,17 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
         noAuthUris = new HashMap<>();
         ArrayList<String> auth = new ArrayList<String>();
         auth.add("ALL");
-        noAuthUris.put("/auth/login", auth);
+        noAuthUris.put("auth", auth);
+
+        auth.add("GET");
+        noAuthUris.put("swagger-ui", auth);
+
+        auth.add("GET");
+        noAuthUris.put("api-docs", auth);
 
         ArrayList<String> user = new ArrayList<String>();
         auth.add("POST");
-        noAuthUris.put("/user", user);
+        noAuthUris.put("user", user);
 
         return noAuthUris;
     }
@@ -43,11 +46,7 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
-        if (
-            (request.getServletPath() != null && getNoAuthUris().containsKey(request.getServletPath())) ||
-            (request.getPathInfo() != null && getNoAuthUris().containsKey(request.getPathInfo()))
-        )
+        if (getPath(request) == 0)
         {
             filterChain.doFilter(request, response);
         } else {
@@ -62,4 +61,16 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
             response.setStatus(401);
         }
     }
+
+    private long getPath(HttpServletRequest request) {
+        if (request.getServletPath() != null) {
+            String[] list = request.getServletPath().split("/");
+            return Arrays.stream(list)
+                    .filter(s -> getNoAuthUris().containsKey(s)).count();
+        }
+        return Arrays.stream(request.getPathInfo()
+                        .split("/"))
+                .filter(s -> getNoAuthUris().containsKey(s)).count();
+    }
+
 }
