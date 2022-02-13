@@ -30,12 +30,6 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
         auth.add("ALL");
         noAuthUris.put("auth", auth);
 
-        auth.add("GET");
-        noAuthUris.put("swagger-ui", auth);
-
-        auth.add("GET");
-        noAuthUris.put("api-docs", auth);
-
         ArrayList<String> user = new ArrayList<String>();
         auth.add("POST");
         noAuthUris.put("user", user);
@@ -62,14 +56,17 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
     }
 
     private Boolean getPathMatch(HttpServletRequest request) {
-        if ((request.getServletPath() != null && Arrays.stream(request.getServletPath()
-                        .split("/"))
-                .filter(s -> getNoAuthUris().containsKey(s)).count() > 0 ) ||
-            (request.getPathInfo() != null && Arrays.stream(request.getPathInfo()
-                            .split("/"))
-                    .filter(s -> getNoAuthUris().containsKey(s)).count() > 0
-            )
-        ) {
+
+        String[] listPaths;
+        if (request.getServletPath() != null) {
+            listPaths = request.getServletPath().split("/");
+        } else if (request.getPathInfo() != null) {
+            listPaths = request.getPathInfo().split("/");
+        } else {
+            throw new RuntimeException("Could not resolve requested path");
+        }
+        if (!Arrays.stream(listPaths).findFirst().equals("api") ||
+            Arrays.stream(listPaths).filter(s -> getNoAuthUris().containsKey(s)).count() > 0 ) {
             return true;
         }
         return false;
