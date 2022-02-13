@@ -3,6 +3,7 @@ package com.example.javaitmo2.web;
 import com.example.javaitmo2.dto.request.UserRequest;
 import com.example.javaitmo2.dto.response.UserResponse;
 import com.example.javaitmo2.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ public class UserController {
         this.modelMapper = modelMapper;
     }
 
+    @Tag(name = "User", description = "Methods for users entities")
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok().body(
