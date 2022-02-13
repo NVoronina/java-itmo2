@@ -2,7 +2,6 @@ package com.example.javaitmo2.service;
 
 import com.example.javaitmo2.dto.response.TokenResponse;
 import com.example.javaitmo2.dto.request.UserRequest;
-import com.example.javaitmo2.dto.response.UserResponse;
 import com.example.javaitmo2.entity.UserEntity;
 import com.example.javaitmo2.repository.JwtRepository;
 import com.example.javaitmo2.repository.NotFoundException;

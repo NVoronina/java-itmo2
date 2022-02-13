@@ -2,7 +2,6 @@ package com.example.javaitmo2.service;
 
 import com.example.javaitmo2.dto.request.UserRequest;
 import com.example.javaitmo2.dto.response.TokenResponse;
-import com.example.javaitmo2.dto.response.UserResponse;
 import com.example.javaitmo2.entity.UserEntity;
 import com.example.javaitmo2.repository.JwtRepository;
 import com.example.javaitmo2.repository.UserRepository;
@@ -13,8 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 

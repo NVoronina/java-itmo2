@@ -3,17 +3,17 @@ package com.example.javaitmo2.service;
 import com.example.javaitmo2.dto.response.OwnerResponse;
 import com.example.javaitmo2.entity.OwnerEntity;
 import com.example.javaitmo2.repository.NotFoundException;
-import com.example.javaitmo2.repository.OwnerRepository;
+import com.example.javaitmo2.repository.impl.OwnerRepositoryImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OwnerService {
 
-    private OwnerRepository ownerRepository;
+    private OwnerRepositoryImpl ownerRepository;
     private ModelMapper modelMapper;
 
-    public OwnerService(OwnerRepository ownerRepository, ModelMapper modelMapper) {
+    public OwnerService(OwnerRepositoryImpl ownerRepository, ModelMapper modelMapper) {
         this.ownerRepository = ownerRepository;
         this.modelMapper = modelMapper;
     }

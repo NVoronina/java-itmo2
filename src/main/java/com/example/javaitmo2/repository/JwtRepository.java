@@ -1,9 +1,10 @@
 package com.example.javaitmo2.repository;
 
-import com.example.javaitmo2.dto.response.UserResponse;
 import com.example.javaitmo2.entity.UserEntity;
+import com.example.javaitmo2.beans.UserSessionBean;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -15,6 +16,9 @@ import java.util.Base64;
 
 @Repository
 public class JwtRepository {
+    @Autowired
+    UserSessionBean userSession;
+
     private String secret = "asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4";
 
     public String getToken(UserEntity existingUser) {
@@ -35,7 +39,8 @@ public class JwtRepository {
                 Jws<Claims> jwt = Jwts.parserBuilder()
                         .setSigningKey(this.getHmacKey())
                         .build().parseClaimsJws(token);
-                System.out.println(jwt.getBody().getExpiration());
+                userSession.setUserUuid(jwt.getBody().getId());
+
                 return true;
             } catch (SignatureException|MalformedJwtException|ExpiredJwtException|UnsupportedJwtException|IllegalArgumentException e) {
                 System.out.println(e.getMessage());

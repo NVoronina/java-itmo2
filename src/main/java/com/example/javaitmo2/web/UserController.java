@@ -1,17 +1,9 @@
 package com.example.javaitmo2.web;
 
-import com.example.javaitmo2.dto.request.CarRequest;
 import com.example.javaitmo2.dto.request.UserRequest;
-import com.example.javaitmo2.dto.response.ErrorResponse;
-import com.example.javaitmo2.dto.response.ResponseInterface;
 import com.example.javaitmo2.dto.response.UserResponse;
-import com.example.javaitmo2.entity.UserEntity;
-import com.example.javaitmo2.repository.CarRepository;
-import com.example.javaitmo2.repository.ValidationException;
 import com.example.javaitmo2.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,12 +23,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseInterface> createUser(@RequestBody UserRequest userRequest) {
-        try {
-            return ResponseEntity.ok().body(
-                    modelMapper.map(this.userService.addUser(userRequest), UserResponse.class));
-        } catch (ValidationException e) {
-            return ResponseEntity.status(400).body(new ErrorResponse(e.getMessage()));
-        }
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
+        return ResponseEntity.ok().body(
+                modelMapper.map(this.userService.addUser(userRequest), UserResponse.class));
     }
 }

@@ -11,3 +11,6 @@ spring:
     password: postgres
   flyway:
     baseline-on-migrate: true
+
+app_host: localhost:8080
+app_env: dev
