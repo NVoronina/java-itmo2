@@ -12,3 +12,4 @@ spring:
     enabled: false
 app_host: localhost:8080
 app_env: dev
+api_brands: https://test

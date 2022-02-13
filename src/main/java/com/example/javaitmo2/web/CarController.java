@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("cars")
-//@OpenAPIDefinition(tags = {})
+@RequestMapping(value = "cars", name = "Cars")
 public class CarController {
 
     private CarService carService;

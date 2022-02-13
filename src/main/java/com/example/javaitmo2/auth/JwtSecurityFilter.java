@@ -46,8 +46,7 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        if (getPath(request) == 0)
-        {
+        if (getPathMatch(request)) {
             filterChain.doFilter(request, response);
         } else {
             String authHeader = request.getHeader("Authorization");
@@ -62,15 +61,18 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
         }
     }
 
-    private long getPath(HttpServletRequest request) {
-        if (request.getServletPath() != null) {
-            String[] list = request.getServletPath().split("/");
-            return Arrays.stream(list)
-                    .filter(s -> getNoAuthUris().containsKey(s)).count();
-        }
-        return Arrays.stream(request.getPathInfo()
+    private Boolean getPathMatch(HttpServletRequest request) {
+        if ((request.getServletPath() != null && Arrays.stream(request.getServletPath()
                         .split("/"))
-                .filter(s -> getNoAuthUris().containsKey(s)).count();
+                .filter(s -> getNoAuthUris().containsKey(s)).count() > 0 ) ||
+            (request.getPathInfo() != null && Arrays.stream(request.getPathInfo()
+                            .split("/"))
+                    .filter(s -> getNoAuthUris().containsKey(s)).count() > 0
+            )
+        ) {
+            return true;
+        }
+        return false;
     }
 
 }
