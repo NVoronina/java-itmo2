@@ -1,0 +1,19 @@
+
+.main-block {
+    background: white;
+    margin: 2em;
+}
+
+img.cat {
+    position: relative;
+    cursor: pointer;
+    height: 50px;
+    opacity: 0.5;
+}
+img#cats-small3 {
+    left: 150px;
+}
+img#cats-small2 {
+    left: 100px;
+}
+

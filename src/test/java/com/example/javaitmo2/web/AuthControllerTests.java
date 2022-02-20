@@ -37,7 +37,7 @@ public class AuthControllerTests {
         UserRequest request = new UserRequest("test2@mail.test", "rrrrrrr", "Natalia", "Voronina");
         userService.addUser(request);
 
-        MockHttpServletRequestBuilder requestBuilder = post("/auth/login")
+        MockHttpServletRequestBuilder requestBuilder = post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request));
         ResultActions perform = this.mockMvc.perform(requestBuilder);
@@ -51,7 +51,7 @@ public class AuthControllerTests {
     @Test
     public void shouldReturnedFailPost() throws Exception {
         UserRequest request = new UserRequest("test2@mail.test", "dd", "Natalia", "Voronina");
-        MockHttpServletRequestBuilder requestBuilder = post("/auth/login")
+        MockHttpServletRequestBuilder requestBuilder = post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request));
         ResultActions perform = this.mockMvc.perform(requestBuilder);

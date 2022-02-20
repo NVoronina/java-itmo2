@@ -14,7 +14,7 @@ public class CleanOwnersJob {
     @Autowired
     private OwnerRepository ownerRepository;
 
-    //10 seconds
+    //30 seconds
     @Scheduled(fixedRate = 30000)
     public void reportCurrentData() {
         System.out.println("Scheduler start working");

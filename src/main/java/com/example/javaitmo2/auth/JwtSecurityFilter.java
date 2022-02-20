@@ -8,10 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JwtSecurityFilter extends OncePerRequestFilter {
 
@@ -31,11 +28,11 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
         noAuthUris = new HashMap<>();
         ArrayList<String> auth = new ArrayList<String>();
         auth.add("ALL");
-        noAuthUris.put("/auth/login", auth);
+        noAuthUris.put("auth", auth);
 
         ArrayList<String> user = new ArrayList<String>();
         auth.add("POST");
-        noAuthUris.put("/user", user);
+        noAuthUris.put("user", user);
 
         return noAuthUris;
     }
@@ -43,12 +40,7 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
-        if (
-            (request.getServletPath() != null && getNoAuthUris().containsKey(request.getServletPath())) ||
-            (request.getPathInfo() != null && getNoAuthUris().containsKey(request.getPathInfo()))
-        )
-        {
+        if (getPathMatch(request)) {
             filterChain.doFilter(request, response);
         } else {
             String authHeader = request.getHeader("Authorization");
@@ -62,4 +54,22 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
             response.setStatus(401);
         }
     }
+
+    private Boolean getPathMatch(HttpServletRequest request) {
+
+        String[] listPaths;
+        if (request.getServletPath() != null) {
+            listPaths = request.getServletPath().split("/");
+        } else if (request.getPathInfo() != null) {
+            listPaths = request.getPathInfo().split("/");
+        } else {
+            throw new RuntimeException("Could not resolve requested path");
+        }
+        if (!Arrays.stream(listPaths).findFirst().equals("api") ||
+            Arrays.stream(listPaths).filter(s -> getNoAuthUris().containsKey(s)).count() > 0 ) {
+            return true;
+        }
+        return false;
+    }
+
 }
