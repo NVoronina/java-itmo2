@@ -1,177 +1,257 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>java-itmo-2</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>java-itmo-2</name>
-	<description>Demo project for Spring Boot</description>
-	<properties>
-		<java.version>11</java.version>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.modelmapper</groupId>
-			<artifactId>modelmapper</artifactId>
-			<version>2.4.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>4.2.0</version>
-			<scope>test</scope>
-		</dependency>
-		<!--Security-->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-api</artifactId>
-			<version>0.11.1</version>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.1</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.1</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>5.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<!--Security-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.3.1</version>
-		</dependency>
+    <groupId>com.example</groupId>
+    <artifactId>javaitmo2</artifactId>
+    <version>1.0.0.RELEASE</version>
+    <name>java-itmo-2</name>
+    <description>Demo project for Spring Boot</description>
+    <packaging>jar</packaging>
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>corp1</id>
+            <name>Corporate Repository</name>
+            <url>file:////Users/nvoronina/Projects/java-itmo-2/target</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!--Security-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>5.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!--Security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.1</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>2.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>2.1.210</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>5.6.3.Final</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.210</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.6.3.Final</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
     </dependencies>
+    <build>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<version>8.0.0</version>
-				<configuration>
-					<url>jdbc:postgresql://127.0.0.1:5432/java_dev</url>
-					<user>postgres</user>
-					<password>postgres</password>
-				</configuration>
-			</plugin>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!--			<plugin>-->
+            <!--				<groupId>org.openapitools</groupId>-->
+            <!--				<artifactId>openapi-generator-maven-plugin</artifactId>-->
+            <!--				<version>5.1.0</version>-->
+            <!--				<executions>-->
+            <!--					<execution>-->
+            <!--						<goals>-->
+            <!--							<goal>generate</goal>-->
+            <!--						</goals>-->
+            <!--						<configuration>-->
+            <!--							<inputSpec>-->
+            <!--								${project.basedir}/src/main/resources/docs/cars.yml-->
+            <!--							</inputSpec>-->
+            <!--							<outputFileName>openapi.json</outputFileName>-->
+            <!--							<outputDir>${project.build.directory}</outputDir>-->
+            <!--							<generatorName>spring</generatorName>-->
+            <!--							<apiPackage>com.baeldung.openapi.api</apiPackage>-->
+            <!--							<modelPackage>com.baeldung.openapi.model</modelPackage>-->
+            <!--							<supportingFilesToGenerate>-->
+            <!--								ApiUtil.java-->
+            <!--							</supportingFilesToGenerate>-->
+            <!--							<configOptions>-->
+            <!--								<delegatePattern>true</delegatePattern>-->
+            <!--							</configOptions>-->
+            <!--						</configuration>-->
+            <!--					</execution>-->
+            <!--				</executions>-->
+            <!--			</plugin>-->
+<!--            <plugin>-->
+<!--                &lt;!&ndash; Build an executable JAR &ndash;&gt;-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-jar-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--&lt;!&ndash;					<goal>jar:inplace</goal>&ndash;&gt;-->
+<!--&lt;!&ndash;					<outputDirectory>artifacts</outputDirectory>&ndash;&gt;-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <addClasspath>true</addClasspath>-->
+<!--                            <mainClass>com.example.javaitmo2.JavaItmo2Application</mainClass>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <mainClass>com.example.javaitmo2.JavaItmo2Application</mainClass>-->
+<!--                    <excludes>-->
+<!--                        <exclude>-->
+<!--                            <groupId>org.projectlombok</groupId>-->
+<!--                            <artifactId>lombok</artifactId>-->
+<!--                        </exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
+<!--                &lt;!&ndash;				<executions>&ndash;&gt;-->
+<!--                &lt;!&ndash;					<execution>&ndash;&gt;-->
+<!--                &lt;!&ndash;						<id>repackage</id>&ndash;&gt;-->
+<!--                &lt;!&ndash;						<configuration>&ndash;&gt;-->
+<!--                &lt;!&ndash;							<classifier>exec</classifier>&ndash;&gt;-->
+<!--                &lt;!&ndash;						</configuration>&ndash;&gt;-->
+<!--                &lt;!&ndash;					</execution>&ndash;&gt;-->
+<!--                &lt;!&ndash;				</executions>&ndash;&gt;-->
+<!--            </plugin>-->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>8.0.0</version>
+                <configuration>
+                    <url>jdbc:postgresql://127.0.0.1:5432/java_dev</url>
+                    <user>postgres</user>
+                    <password>postgres</password>
+                </configuration>
+            </plugin>
 
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.1</version>
-				<executions>
-					<execution>
-						<id>prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<!-- Sets the path to the file which contains the execution data. -->
-							<dataFile>target/jacoco.exec</dataFile>
-							<!-- Sets the output directory for the code coverage report. -->
-							<outputDirectory>target/jacoco-ut</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-				<configuration>
-					<excludes>
-						<exclude>com/example/javaitmo2/dto/request/*.class</exclude>
-						<exclude>com/example/javaitmo2/dto/response/*.class</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+            <!--			<plugin>-->
+            <!--				<groupId>org.jacoco</groupId>-->
+            <!--				<artifactId>jacoco-maven-plugin</artifactId>-->
+            <!--				<version>0.8.1</version>-->
+            <!--				<executions>-->
+            <!--					<execution>-->
+            <!--						<id>prepare-agent</id>-->
+            <!--						<goals>-->
+            <!--							<goal>prepare-agent</goal>-->
+            <!--						</goals>-->
+            <!--					</execution>-->
+            <!--					<execution>-->
+            <!--						<id>report</id>-->
+            <!--						<phase>prepare-package</phase>-->
+            <!--						<goals>-->
+            <!--							<goal>report</goal>-->
+            <!--						</goals>-->
+            <!--						<configuration>-->
+            <!--							&lt;!&ndash; Sets the path to the file which contains the execution data. &ndash;&gt;-->
+            <!--							<dataFile>target/jacoco.exec</dataFile>-->
+            <!--							&lt;!&ndash; Sets the output directory for the code coverage report. &ndash;&gt;-->
+            <!--							<outputDirectory>target/jacoco-ut</outputDirectory>-->
+            <!--						</configuration>-->
+            <!--					</execution>-->
+            <!--				</executions>-->
+            <!--				<configuration>-->
+            <!--					<excludes>-->
+            <!--						<exclude>com/example/javaitmo2/dto/request/*.class</exclude>-->
+            <!--						<exclude>com/example/javaitmo2/dto/response/*.class</exclude>-->
+            <!--					</excludes>-->
+            <!--				</configuration>-->
+            <!--			</plugin>-->
+        </plugins>
+    </build>
 
 </project>

@@ -1,5 +1,6 @@
 version: '2.2'
 services:
+
   postgres:
     restart: always
     image: postgres:11
@@ -13,6 +14,18 @@ services:
       - '${WEBROOT}/docker/volumes/pg:/var/lib/postgresql'
     networks:
       - code-network
+
+  java:
+    restart: always
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+    depends_on:
+      - postgres
+    networks:
+      - code-network
+
 networks:
   code-network:
     driver: bridge

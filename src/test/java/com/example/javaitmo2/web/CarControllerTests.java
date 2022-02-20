@@ -57,7 +57,7 @@ public class CarControllerTests {
         }
         UserRequest request = new UserRequest("test@mail.test", "rrrrrrr", "Natalia", "Voronina");
         userService.addUser(request);
-        MockHttpServletRequestBuilder requestBuilder = post("/auth/login")
+        MockHttpServletRequestBuilder requestBuilder = post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request));
         ResultActions perform = this.mockMvc.perform(requestBuilder);
@@ -70,7 +70,7 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedSuccessGetList() throws Exception {
-        ResultActions perform = this.mockMvc.perform(get("/cars/list")
+        ResultActions perform = this.mockMvc.perform(get("/api/cars/list")
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().is(200));
@@ -89,7 +89,7 @@ public class CarControllerTests {
         CarRequest request = new CarRequest(expectedVin, "toyota", 5, null, ownerRequest);
         carService.create(request);
 
-        ResultActions perform = this.mockMvc.perform(get("/cars/" + expectedVin)
+        ResultActions perform = this.mockMvc.perform(get("/api/cars/" + expectedVin)
                         .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().is(200));
@@ -103,7 +103,7 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedExceptionGetOne() throws Exception {
-        this.mockMvc.perform(get("/cars/AAAAA")
+        this.mockMvc.perform(get("/api/cars/AAAAA")
                         .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().is(404));
@@ -119,7 +119,7 @@ public class CarControllerTests {
 
         CarRequest request = new CarRequest("RETSBHGDG", "bmw", 4, driverRequests, ownerRequest);
 
-        MockHttpServletRequestBuilder requestBuilder = post("/cars")
+        MockHttpServletRequestBuilder requestBuilder = post("/api/cars")
                 .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request));
@@ -141,7 +141,7 @@ public class CarControllerTests {
         CarRequest request = new CarRequest("ZCR12TTFGHJS45", "toyota", 5, new ArrayList<>(), ownerRequest);
         carService.create(request);
 
-        MockHttpServletRequestBuilder requestBuilder = put("/cars")
+        MockHttpServletRequestBuilder requestBuilder = put("/api/cars")
                 .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request));
@@ -162,7 +162,7 @@ public class CarControllerTests {
         OwnerRequest ownerRequest = new OwnerRequest("DOC_CAR_REG_2", new Date());
 
         CarRequest request = new CarRequest("HHHGHHHHH", "toyota", 5, null, ownerRequest);
-        MockHttpServletRequestBuilder requestBuilder = put("/cars")
+        MockHttpServletRequestBuilder requestBuilder = put("/api/cars")
                 .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request));
@@ -184,7 +184,7 @@ public class CarControllerTests {
         CarRequest request = new CarRequest("YYY12TTFGHJS55", "toyota", 5, null, ownerRequest);
 
         carService.create(request);
-        this.mockMvc.perform(delete("/cars/YYY12TTFGHJS55")
+        this.mockMvc.perform(delete("/api/cars/YYY12TTFGHJS55")
                         .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().is(200));
@@ -192,7 +192,7 @@ public class CarControllerTests {
 
     @Test
     public void shouldReturnedDeleteException() throws Exception {
-        this.mockMvc.perform(delete("/cars/dddddd")
+        this.mockMvc.perform(delete("/api/cars/dddddd")
                         .header("Authorization", "Bearer " + this.token))
                 .andDo(print())
                 .andExpect(status().is(404));

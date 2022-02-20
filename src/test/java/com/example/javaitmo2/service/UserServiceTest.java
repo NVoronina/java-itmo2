@@ -25,7 +25,7 @@ public class UserServiceTest {
 
     @Test
     public void authUserSuccess() throws Exception {
-        userService.addUser(new UserRequest("test@mail.test", "rrrrrrr", "Natalia", "Test"));
+//        userService.addUser(new UserRequest("test@mail.test", "rrrrrrr", "Natalia", "Test"));
         assertInstanceOf(TokenResponse.class, userService.authUser(new UserRequest("test@mail.test", "rrrrrrr")));
     }
 }
