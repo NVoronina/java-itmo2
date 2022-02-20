@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HtmlController {
 
-    @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/", "/auth" }, method = RequestMethod.GET)
     public String index(Model model) {
 
         String message = "Authorize for use API";

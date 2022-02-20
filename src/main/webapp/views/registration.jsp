@@ -22,7 +22,7 @@
             <input type="text" placeholder="password" name="password"/>
             <input type="submit" value="Send"/>
         </form>
-        <a href="index">Authorization</a>
+        <a href="auth">Authorization</a>
         <div>
             <img id="cats-small" class="cat" alt="Foot" src="${pageContext.request.contextPath}/images/cat-preview.png"/>
         </div>

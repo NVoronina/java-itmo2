@@ -17,10 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
             makeAjaxRequest(action, method, JSON.stringify(data), function (response) {
                 if(response.readyState === XMLHttpRequest.DONE && response.status === 200) {
                     alert('Success AUTH!')
-                };
+                }
                 if(response.readyState === XMLHttpRequest.DONE && response.status === 400) {
                     alert('No user found')
-                };
+                }
+                if(response.readyState === XMLHttpRequest.DONE && response.status === 404) {
+                    alert('No user found')
+                }
             });
         }
     });

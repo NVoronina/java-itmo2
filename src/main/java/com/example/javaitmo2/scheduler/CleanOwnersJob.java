@@ -14,8 +14,8 @@ public class CleanOwnersJob {
     @Autowired
     private OwnerRepository ownerRepository;
 
-    //30 seconds
-    @Scheduled(fixedRate = 30000)
+    //120 seconds
+    @Scheduled(fixedRate = 120000)
     public void reportCurrentData() {
         System.out.println("Scheduler start working");
         List<OwnerEntity> listOwners = ownerRepository.getNotRelatedOwners();
